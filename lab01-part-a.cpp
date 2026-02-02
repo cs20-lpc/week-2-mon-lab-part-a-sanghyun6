@@ -6,42 +6,46 @@ using namespace std;
 
 /*******************************************************************************
  * Function prototypes
-*******************************************************************************/
+ *******************************************************************************/
 
-void populate(string*, const unsigned);
-void printFoods(string*, const unsigned);
+void populate(string *, const unsigned);
+void printFoods(string *, const unsigned);
 
 /*******************************************************************************
  * Description:
  * Starting point of the program. Creates a dynamic array of strings. User gets
  * to specify their desired size. Calls functions. Releases dynamic memory.
- * 
+ *
  * Input:
  * N/A
  *
  * Output:
  * An integer to signal to the OS the exit code.
-*******************************************************************************/
+ *******************************************************************************/
 
-int main() {
+int main()
+{
     // variables
-    string*  dynArr   = nullptr;
+    string *dynArr = nullptr;
     unsigned userSize = 0;
 
     // get the size for the array from user
     // validation: must not exceed 10
-    do {
+    do
+    {
         cout << "Enter your desired array size: ";
         cin >> userSize;
     } while (userSize > 10);
 
     // TODO: create the dynamic memory
+    dynArr = new string[userSize];
 
     // call the functions
     populate(dynArr, userSize);
     printFoods(dynArr, userSize);
 
     // TODO: release the dynamic memory to avoid a memory leak
+    delete[] dynArr;
 
     // terminate
     return 0;
@@ -50,7 +54,7 @@ int main() {
 /*******************************************************************************
  * Description:
  * Gets data from the user to populate the array pointed to by `arrPtr`.
- * 
+ *
  * Input:
  * arrPtr   - a pointer to the beginning of a string array
  * ARR_SIZE - a constant unsigned integer containing the size of the array
@@ -58,17 +62,24 @@ int main() {
  *
  * Output:
  * N/A
-*******************************************************************************/
+ *******************************************************************************/
 
-void populate(string* arrPtr, const unsigned ARR_SIZE) {
+void populate(string *arrPtr, const unsigned ARR_SIZE)
+{
     // TODO
+    cin.ignore();
+    for (unsigned i = 0; i < ARR_SIZE; i++)
+    {
+        cout << "Enter food order #" << i + 1 << ": ";
+        getline(cin, arrPtr[i]);
+    }
 }
 
 /*******************************************************************************
  * Description:
  * Displays the information stored in the array pointed to by `arrPtr`. Also
  * prints what memory address each element is stored in.
- * 
+ *
  * Input:
  * arrPtr   - a pointer to the beginning of a string array
  * ARR_SIZE - a constant unsigned integer containing the size of the array
@@ -76,8 +87,17 @@ void populate(string* arrPtr, const unsigned ARR_SIZE) {
  *
  * Output:
  * N/A
-*******************************************************************************/
+ *******************************************************************************/
 
-void printFoods(string* arrPtr, const unsigned ARR_SIZE) {
+void printFoods(string *arrPtr, const unsigned ARR_SIZE)
+{
     // TODO
+    for (unsigned i = 0; i < ARR_SIZE; i++)
+    {
+        cout << "\n****************************************\n";
+        cout << "Food Order #" << i + 1 << "\n";
+        cout << arrPtr[i] << "\n";
+        cout << "(sent from address " << &arrPtr[i] << ")\n";
+        cout << "****************************************\n";
+    }
 }
